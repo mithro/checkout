@@ -263,6 +263,8 @@ class GitCommandManager {
 
   async remoteAdd(remoteName: string, remoteUrl: string): Promise<void> {
     await this.execGit(['remote', 'add', remoteName, remoteUrl])
+    await this.execGit(['config', '--local', 'remote.'+remoteName+'.promisor', 'true'])
+    await this.execGit(['config', '--local', 'remote.'+remoteName+'.partialclonefilter', 'blob:0'])
   }
 
   removeEnvironmentVariable(name: string): void {
